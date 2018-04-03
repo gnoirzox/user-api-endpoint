@@ -38,23 +38,29 @@ To setup the MySQL database, you just need to import the tables.sql into your My
 # RFI
 
 - Why did you choose these specific technologies?
+
 I decided to use Go and MySQL because it was suggested by Tom to use Go and also it is well-suited for the creation of a REST API. I used also MySQL because that was the most straight-forward system to setup and it would be useful if we need to extend this project. Also, MySQL is really useful for the uniqueness constraints on the user details.
 
 - What were the major challenges you faced (at least one, even if you think it is all easy, the least easiest bit)?
+
 The major challenge I faced was when I tried to create the environment setup with Docker because I was not used to it. The Dockerfiles and docker-compose.yml files are still in the project for review. The setup of the MySQL container seems fine but I had some trouble with the Golang container.
 
 I also had some difficulty to setup the MySQL connection within the Go project, but there is some good documentation on internet so I succeeded to do it.
 
 - What performance issues do you think may arise in your solution as the number of users increases?
+
 One of the performance issue that may arise is while inserting an user and inserting or updating his location.
 
 - What could you do to avoid these issues?
+
 To avoid these issues, I could have created a connection pool for the connection with the MySQL database and also use the concurrency patterns of Go (channels or mutexes).
 
 - What did you like/dislike about the test (please provide at least one of each)?
+
 I really appreciated working with Go and setting up the REST endpoints. I did not like trying to setup the Docker environment because I am not used to it.
 
 - What changes could we make to improve the test (make it more interesting, harder, easier, etc...)?
+
 To make the test easier, it would be nice to allow the use of regular expressions for validation and not require to setup docker files and a docker-compose.yml file.
 
 To make the test harder and more interesting, it would have been interesting to rely on a third party api to retrieve some informations. For instance, we could have setup an authentication system relying on the Google OAuth2 authentication system.
