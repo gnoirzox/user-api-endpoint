@@ -29,7 +29,7 @@ func InsertCoordinates(location *Location) error {
 	db := utils.OpenDBConnection()
 	defer db.Close()
 
-	insert, err := db.Prepare("INSERT INTO Locations (longitude, latitude, user_id) VALUES (?,?,?)")
+	insert, err := db.Prepare("INSERT INTO Locations (longitude, latitude, user_id) VALUES (?, ?, ?)")
 	defer insert.Close()
 
 	if err != nil {
@@ -59,7 +59,7 @@ func UpdateCoordinates(location *Location) error {
 		return err
 	}
 
-	update, err := transaction.Prepare("UPDATE Locations SET `longitude`=?, `latitude`=? WHERE `user_id`=?")
+	update, err := transaction.Prepare("UPDATE Locations SET longitude = ?, latitude = ? WHERE user_id = ?")
 	defer update.Close()
 
 	if err != nil {
@@ -91,7 +91,7 @@ func GetCoordinates(UserId int64) (*Location, error) {
 	db := utils.OpenDBConnection()
 	defer db.Close()
 
-	row := db.QueryRow("SELECT longitude, latitude, user_id FROM Locations WHERE user_id=?", UserId)
+	row := db.QueryRow("SELECT longitude, latitude, user_id FROM Locations WHERE user_id = ?", UserId)
 
 	var longitude float64
 	var latitude float64

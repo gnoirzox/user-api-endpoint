@@ -9,7 +9,6 @@ import (
 
 func InsertUser(user *User) error {
 	db := utils.OpenDBConnection()
-
 	defer db.Close()
 
 	insert, err := db.Prepare("INSERT INTO Users (username, phone_number, email) VALUES (?, ?, ?)")
@@ -19,7 +18,6 @@ func InsertUser(user *User) error {
 	}
 
 	_, err = insert.Exec(&user.Username, &user.PhoneNumber, &user.Email)
-
 	defer insert.Close()
 
 	if err != nil {
@@ -33,7 +31,6 @@ func InsertUser(user *User) error {
 
 func RetrieveUser(UserId int64) (*User, error) {
 	db := utils.OpenDBConnection()
-
 	defer db.Close()
 
 	row := db.QueryRow("SELECT Users.username, Users.phone_number, Users.email, Locations.longitude, Locations.latitude FROM Users LEFT JOIN Locations ON Users.id = Locations.user_id WHERE Users.id = ?", UserId)
