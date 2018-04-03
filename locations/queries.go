@@ -34,6 +34,8 @@ func InsertCoordinates(location *Location) error {
 
 	if err != nil {
 		log.Println(err.Error())
+
+		return err
 	}
 
 	_, err = insert.Exec(&location.Longitude, &location.Latitude, &location.UserId)

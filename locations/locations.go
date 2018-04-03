@@ -38,16 +38,16 @@ func (location *Location) IsValidUserId() bool {
 
 	defer db.Close()
 
-	row := db.QueryRow("SELECT id FROM Users WHERE id = ?")
+	row := db.QueryRow("SELECT id FROM Users WHERE id = ?", location.UserId)
 	err := row.Scan(&location.UserId)
+
+	if err == sql.ErrNoRows {
+		return false
+	}
 
 	if err != nil {
 		log.Println(err.Error())
 
-		return false
-	}
-
-	if err == sql.ErrNoRows {
 		return false
 	}
 
