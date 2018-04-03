@@ -30,13 +30,13 @@ func InsertCoordinates(location *Location) error {
 	defer db.Close()
 
 	insert, err := db.Prepare("INSERT INTO Locations (longitude, latitude, user_id) VALUES (?, ?, ?)")
+	defer insert.Close()
 
 	if err != nil {
 		log.Println(err.Error())
 	}
 
 	_, err = insert.Exec(&location.Longitude, &location.Latitude, &location.UserId)
-	defer insert.Close()
 
 	if err != nil {
 		log.Println(err.Error())
