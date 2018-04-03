@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+    database:
+        container_name: mysql_database
+        image: mysql
+        build: 
+            context: .
+            dockerfile: setup/database/Dockerfile
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_HOST: "localhost"
+            MYSQL_DATABASES: "SnatchHQ"
+            MYSQL_USER: "Snatch"
+            MYSQL_PASSWORD: "AndHide"
+            MYSQL_ROOT_PASSWORD: "toor"
+            MYSQL_LOYALTY_DATABASE: "SnatchHQ"
+    app:
+        container_name: go_app
+        image: golang 
+        build: 
+            context: .
+            dockerfile: setup/web/Dockerfile
+        ports:
+            - "80:8888"
+        links:
+            - database
+        tty: true
