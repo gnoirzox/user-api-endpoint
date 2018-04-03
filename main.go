@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.github.com/gorilla/mux"
+	"github.com/gorilla/mux"
 
 	"./locations"
 	"./users"
