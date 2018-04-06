@@ -14,6 +14,8 @@ func PostLocation(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&location)
 
+	defer r.Body.Close()
+
 	if err != nil {
 		log.Println(err.Error())
 
@@ -22,8 +24,6 @@ func PostLocation(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
-
-	defer r.Body.Close()
 
 	if !location.IsValidLongitude() {
 		utils.ReturnJsonResponse(w, http.StatusBadRequest,

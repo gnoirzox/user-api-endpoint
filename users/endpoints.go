@@ -41,8 +41,9 @@ func PostUser(w http.ResponseWriter, r *http.Request) {
 	var u User
 
 	decoder := json.NewDecoder(r.Body)
-
 	err := decoder.Decode(&u)
+
+	defer r.Body.Close()
 
 	if err != nil {
 		log.Println(err.Error())
@@ -51,8 +52,6 @@ func PostUser(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
-
-	defer r.Body.Close()
 
 	if !u.IsValidUsername() {
 		utils.ReturnJsonResponse(w, http.StatusBadRequest,
